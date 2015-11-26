@@ -5,7 +5,7 @@ function list(index,task,due,priority,done){
 	this.due=due;
 	this.done=done;
 }
-
+//
 list.prototype.settask=function(t){this.task=t;};
 list.prototype.setpriority=function(t){this.priority=t;};
 list.prototype.setdue=function(t){this.due=t;};
