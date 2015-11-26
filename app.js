@@ -25,7 +25,7 @@ function sort(List){
 	{
 		for(k=1;k<i-j;k++)
 		{
-			if(getElementById("todo_"+j).p)
+			if(getElementById("todo_"+j).p){;}
 		}
 	}
 }
