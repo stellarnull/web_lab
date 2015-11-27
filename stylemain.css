@@ -35,3 +35,9 @@ header
 	background-color: #d1e8ff;
 	margin-bottom: 10px;
 }
+
+li
+{
+	background-color: #d1e8ff;
+	width: 90%;
+}

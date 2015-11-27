@@ -68,10 +68,10 @@ var sort=function(new_TODO,i){//new_TODO is the item, i is its index
 	//(我也不知道为啥我是试出来的)
 	console.log(p);
 	for(j=0;j<number;j++,p=p.nextSibling)
-	//从头开始遍历所有item,按照日期找到第一个比他日期小的，插到他前面
+	//从头开始遍历所有item,按照日期找到第一个比他日期大的，插到他前面
 	{
 		var index=p.id.replace("todo","")
-		if(newlist[i].due>newlist[index].due)
+		if(newlist[i].due<newlist[index].due)
 		{
 			document.getElementById("todolist").insertBefore(new_TODO,p);
 			break;
@@ -153,36 +153,78 @@ var main=function()
 		Editbutton.id="ed_"+i;//增加了一个用来Edit的按钮，在最后
 
 		//to ensure only valid input are typed
-		if ($("#task").val()===""||$("#due").val()===""||!($("#priority").val()==='1'||$("#priority").val()==='2'||$("#priority").val()==='3')) 
+		var task = $("#task").val();
+		var due = $("#due").val();
+		var pri = $("#priority").val();
+
+		function invalidInput()
 		{
 			console.log("invalid input!");
 			window.alert("invalid input!");
 		}
+
+		if (task===""||due.length!==6||pri!=='1'&&pri!=='2'&&pri!=='3')
+		{
+			invalidInput();
+		}
 		else
 		{
-			console.log("New todo created!");
-			span.innerText=newlist[i].getAList();
+			var mm = parseInt(due.substring(2, 4));
+			var dd = parseInt(due.substring(4, 6));
 
-			//add the new item
-			new_TODO.appendChild(span);
-			new_TODO.appendChild(Donebox);
-			new_TODO.appendChild(Deletebutton);
-			new_TODO.appendChild(Editbutton);
-			if(number===0)
-			List.appendChild(new_TODO);
+			if (mm<1||mm>12||dd<1||dd>31)
+			{
+				invalidInput();
+			}
 			else
-			sort(new_TODO,i);//put the ith item in the right place
-			//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
-			//$(".TODOs").append(newlist.Donebox);
-			//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
-			//$(".TODOs").append(newlist.Deletebutton);
-			$("#task").val("");$("#due").val("");
-			$("#priority").val("");
-			console.log(i);
+			{
+				console.log("New todo created!");
+				span.innerText=newlist[i].getAList();
 
-			//increment counter
-			i = i + 1;
-			number=number+1;
+				//add the new item
+				new_TODO.appendChild(span);
+				new_TODO.appendChild(Donebox);
+				new_TODO.appendChild(Deletebutton);
+				new_TODO.appendChild(Editbutton);
+				if(number===0)
+				List.appendChild(new_TODO);
+				else
+				sort(new_TODO,i);//put the ith item in the right place
+				//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
+				//$(".TODOs").append(newlist.Donebox);
+				//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
+				//$(".TODOs").append(newlist.Deletebutton);
+				$("#task").val("");$("#due").val("");
+				$("#priority").val("");
+				console.log(i);
+
+				//increment counter
+				i = i + 1;
+				number=number+1;console.log("New todo created!");
+				span.innerText=newlist[i].getAList();
+
+				//add the new item
+				new_TODO.appendChild(span);
+				new_TODO.appendChild(Donebox);
+				new_TODO.appendChild(Deletebutton);
+				new_TODO.appendChild(Editbutton);
+				if(number===0)
+				List.appendChild(new_TODO);
+				else
+				sort(new_TODO,i);//put the ith item in the right place
+				//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
+				//$(".TODOs").append(newlist.Donebox);
+				//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
+				//$(".TODOs").append(newlist.Deletebutton);
+				$("#task").val("");$("#due").val("");
+				$("#priority").val("");
+				console.log(i);
+
+				//increment counter
+				i = i + 1;
+				number=number+1;
+			}
+			
 		}
 	};
 
