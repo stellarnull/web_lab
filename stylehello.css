@@ -4,9 +4,85 @@ p {
 
 span {
 	color: blue;
+	font-size: 25px;
+	font-family: Verdana;
+	
+}
+
+body 
+{
+	background-color: #edf6ff;
+	padding-left: 40px;
 }
 
 #logo {
 	height: 200px;
 	width: 390px;
+	padding-top: -20px;
+	padding-left: 100px;
 }
+
+button
+{
+    height: 50px;
+    width: 250px;
+    border-color: #6495ED;
+    background-color: #BCD2EE;
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 5px;
+    margin: auto;
+    text-align: center;
+    text-decoration: none;
+}
+
+div
+{
+	border-radius: 5px;
+}
+
+header
+{
+	z-index: 1;
+	position: fixed;
+	width: 97.5%;
+	margin-top: 20px;
+	height: 200px;
+	background-color: #d1e8ff;
+	margin-bottom: 10px;
+}
+
+nav
+{
+	float: right;
+	padding-right: 150px;
+	padding-top: 150px;
+}
+
+main
+{
+	position: relative;
+	float: left;
+	margin-top: 50px;
+	width: 97.5%;
+	height: 400px;
+	background-color: #B9D7D9;
+	margin-top: 250px;
+	padding-left: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
