@@ -19,7 +19,7 @@ body
 	height: 200px;
 	width: 390px;
 	padding-top: -20px;
-	padding-left: 100px;
+	padding-left: 50px;
 }
 
 button
@@ -43,7 +43,6 @@ div
 
 header
 {
-	z-index: 1;
 	position: fixed;
 	width: 97.5%;
 	margin-top: 20px;
