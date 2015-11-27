@@ -46,34 +46,70 @@ function updateDelete(){
 	$(targetList).remove();
 	console.log(i);
 	number=number-1;
-	for (j = DeleteID + 1; j < i; j++)
-	{
-		newlist[j] = newlist[j+1];
-		console.log(targetList.task);
-		console.log(document.getElementById("db_"+DeleteID).id);
-		document.getElementById("todo"+j).id="todo"+j-1;
-		document.getElementById("sp_"+DeleteID).id="sp_"+j-1;
-		document.getElementById("db_"+DeleteID).id="db_"+j-1;
-		document.getElementById("cb_"+DeleteID).id="cb_"+j-1;
-	}
-	i--;
+	//for (j = DeleteID + 1; j < i; j++)
+	//{
+	//	newlist[j] = newlist[j+1];
+	//	console.log(targetList.task);
+	//	console.log(document.getElementById("db_"+DeleteID).id);
+	//	document.getElementById("todo"+j).id="todo"+j-1;
+	//	document.getElementById("sp_"+DeleteID).id="sp_"+j-1;
+	//	document.getElementById("db_"+DeleteID).id="db_"+j-1;
+	//	document.getElementById("cb_"+DeleteID).id="cb_"+j-1;
+	//}
+	//i;
 }
 
-var sort=function(List,number,new_TODO){
+
+//for sorting all data according to due date
+var sort=function(new_TODO,i){//new_TODO is the item, i is its index
 	var j;
-	var p=List.firstChild.nextSibling;
+	var p=document.getElementById("todolist").firstChild.nextSibling;
+	//the second child(.firstChild.nextSibling)is the first TODO item in the list
+	//(我也不知道为啥我是试出来的)
 	console.log(p);
 	for(j=0;j<number;j++,p=p.nextSibling)
+	//从头开始遍历所有item,按照日期找到第一个比他日期小的，插到他前面
 	{
 		var index=p.id.replace("todo","")
 		if(newlist[i].due>newlist[index].due)
 		{
-			List.insertBefore(new_TODO,p);
+			document.getElementById("todolist").insertBefore(new_TODO,p);
 			break;
 		}
 	}
-if(j==number) List.appendChild(new_TODO);
-};
+if(j==number) document.getElementById("todolist").appendChild(new_TODO);
+};//找不到就插到最后
+
+function updateEdit(){//用来改变其中一个条目
+	var me = this;
+	var j;
+	console.log(me);
+	var EditID = this.id.replace("ed_","");
+	var targetList = document.getElementById("todo"+EditID);
+	console.log("EditID:"+EditID);
+	if ($("#task").val()===""||$("#due").val()===""
+		||!($("#priority").val()==='1'
+		||$("#priority").val()==='2'
+		||$("#priority").val()==='3')) 
+		{
+			console.log("invalid input!");
+			window.alert("invalid input!");
+		}//以上格式控制等内容和增加新条目是几乎一样的
+	else
+	{
+		newlist[EditID].task= $("#task").val();
+		newlist[EditID].due= $("#due").val();
+		newlist[EditID].priority= $("#priority").val();
+		console.log(targetList.firstChild)
+		targetList.firstChild.innerText=newlist[EditID].getAList();
+		sort(targetList,EditID);
+
+		$("#task").val("");
+		$("#due").val("");
+		$("#priority").val("");
+	}//以上进行赋值，排序和增加新条目函数也是一样的，但是由于这个函数被
+	//增加新条目的函数调用了，所以不可以相互调用就只能复制部分相关代码
+}
 
 var newlist=Array();
 var main=function()
@@ -103,11 +139,18 @@ var main=function()
 		Donebox.type="checkbox";
 		Donebox.onclick=updateDone;
 		Donebox.id="cb_"+i;
+
 		var Deletebutton=document.createElement("input");
 		Deletebutton.type="button";
 		Deletebutton.Text="Delete!";
 		Deletebutton.onclick=updateDelete;
 		Deletebutton.id="db_"+i;
+
+		var Editbutton=document.createElement("input");
+		Editbutton.type="button";
+		Editbutton.Text="Edit!";
+		Editbutton.onclick=updateEdit;
+		Editbutton.id="ed_"+i;//增加了一个用来Edit的按钮，在最后
 
 		//to ensure only valid input are typed
 		if ($("#task").val()===""||$("#due").val()===""||!($("#priority").val()==='1'||$("#priority").val()==='2'||$("#priority").val()==='3')) 
@@ -124,10 +167,11 @@ var main=function()
 			new_TODO.appendChild(span);
 			new_TODO.appendChild(Donebox);
 			new_TODO.appendChild(Deletebutton);
+			new_TODO.appendChild(Editbutton);
 			if(number===0)
 			List.appendChild(new_TODO);
 			else
-			sort(List,number,new_TODO);
+			sort(new_TODO,i);//put the ith item in the right place
 			//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
 			//$(".TODOs").append(newlist.Donebox);
 			//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
