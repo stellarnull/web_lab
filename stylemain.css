@@ -1,6 +1,37 @@
-//stylemain
 
 body 
 {
-	background-color: #e0f0ff;
+	background-color: #edf6ff;
+}
+
+
+#logo 
+{
+	height: 200px;
+	width: 390px;
+	padding-top: -20px;
+	padding-left: 20px;
+}
+
+main
+{
+	position: relative;
+	float: left;
+	margin-top: 50px;
+	width: 97.5%;
+	height: 400px;
+	background-color: #B9D7D9;
+	margin-top: 250px;
+	padding-left: 30px;
+	//margin-bottom: 80px;
+}
+
+header
+{
+	position: fixed;
+	width: 97.5%;
+	margin-top: 20px;
+	height: 200px;
+	background-color: #d1e8ff;
+	margin-bottom: 10px;
 }
