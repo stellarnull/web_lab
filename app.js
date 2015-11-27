@@ -1,4 +1,5 @@
 var i; //global counter
+var number//the number of items currently
 function list(task,due,priority,done){
 	
 	this.task=task;
@@ -44,7 +45,7 @@ function updateDelete(){
 	console.log("DeleteID:"+DeleteID);
 	$(targetList).remove();
 	console.log(i);
-
+	number=number-1;
 	for (j = DeleteID + 1; j < i; j++)
 	{
 		newlist[j] = newlist[j+1];
@@ -58,11 +59,20 @@ function updateDelete(){
 	i--;
 }
 
-var sort=function(){
-	for(var j=0;j<i;j++)
+var sort=function(List,number,new_TODO){
+	var j;
+	var p=List.firstChild.nextSibling;
+	console.log(p);
+	for(j=0;j<number;j++,p=p.nextSibling)
 	{
-		;
+		var index=p.id.replace("todo","")
+		if(newlist[i].due>newlist[index].due)
+		{
+			List.insertBefore(new_TODO,p);
+			break;
+		}
 	}
+if(j==number) List.appendChild(new_TODO);
 };
 
 var newlist=Array();
@@ -70,6 +80,7 @@ var main=function()
 {
 	"use strict";
 	i=0;
+	number=0;
 	console.log("hello world!");
 	
 	//this function is for adding new item to the list
@@ -113,8 +124,10 @@ var main=function()
 			new_TODO.appendChild(span);
 			new_TODO.appendChild(Donebox);
 			new_TODO.appendChild(Deletebutton);
+			if(number===0)
 			List.appendChild(new_TODO);
-
+			else
+			sort(List,number,new_TODO);
 			//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
 			//$(".TODOs").append(newlist.Donebox);
 			//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
@@ -125,6 +138,7 @@ var main=function()
 
 			//increment counter
 			i = i + 1;
+			number=number+1;
 		}
 	};
 
