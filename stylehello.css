@@ -1,5 +1,29 @@
 p {
 	font-family: Courier;
+	-webkit-animation-duration: 5s;
+	-webkit-animation-name: moveTo;
+}
+
+@-webkit-keyframes moveTo
+{
+	from
+	{
+		color: blue;
+	}
+	top
+	{
+		color: black;
+	}
+}
+
+p::after
+{
+	content: "*";
+}
+
+p::before
+{
+	content: "*";
 }
 
 span {
@@ -22,6 +46,17 @@ body
 	padding-left: 50px;
 }
 
+button:hover
+{
+    color: #6079ff;
+}
+
+button:active
+{
+    color: #ffc741;
+    background-color: #ffc741;
+}
+
 button
 {
     height: 50px;
@@ -35,6 +70,8 @@ button
     text-align: center;
     text-decoration: none;
 }
+
+
 
 div
 {
@@ -69,6 +106,8 @@ main
 	margin-top: 250px;
 	padding-left: 30px;
 }
+
+
 
 
 

@@ -194,7 +194,8 @@ var main=function()
 				//$(".TODOs").append(newlist.Donebox);
 				//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
 				//$(".TODOs").append(newlist.Deletebutton);
-				$("#task").val("");$("#due").val("");
+				$("#task").val("");
+				$("#due").val("");
 				$("#priority").val("");
 				console.log(i);
 
