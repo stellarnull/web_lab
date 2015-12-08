@@ -41,3 +41,32 @@ li
 	background-color: #d1e8ff;
 	width: 90%;
 }
+
+.done
+{
+	color: green;
+}
+
+.done::after
+{
+	content: "DONE!";
+	color: rgba(0, 100, 0, 0.7);
+}
+
+.overdue::after
+{
+	content: "OVERDUE!";
+	color: red;
+}
+
+.pri_1::before
+{
+	content: "IMPORTANT!";
+	color: red;
+}
+
+.pri_2::before
+{
+	content: "MEDIUM!";
+	color: orange;
+}

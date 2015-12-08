@@ -22,6 +22,7 @@ list.prototype.get
 function updateDone(){
 	var me =this;
 	console.log(me);
+	
 
 	//find the line whose checkbox is checked
 	var DoneID=this.id.replace("cb_","");
@@ -31,7 +32,7 @@ function updateDone(){
 	console.log("sp_"+DoneID);
 
 	//done
-	targetspan.innerText="DONE!";
+	document.getElementById("todo"+DoneID).className = "done";
 	newlist[DoneID].done="DONE!";
 	console.log(newlist[DoneID].task);
 }
@@ -169,6 +170,7 @@ var main=function()
 		}
 		else
 		{
+			var yy = parseInt(due.substring(0, 2));
 			var mm = parseInt(due.substring(2, 4));
 			var dd = parseInt(due.substring(4, 6));
 
@@ -194,6 +196,25 @@ var main=function()
 				//$(".TODOs").append(newlist.Donebox);
 				//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
 				//$(".TODOs").append(newlist.Deletebutton);
+				
+				if (due < 151208)
+				{
+					$("#sp_"+i).addClass("overdue");
+				}
+
+				if (pri==='1')
+				{
+					$("#sp_"+i).addClass("pri_1");
+				}
+				else if (pri==='2')
+				{
+					$("#sp_"+i).addClass("pri_2");
+				}
+				else
+				{
+					$("#sp_"+i).addClass("pri_3");
+				}
+
 				$("#task").val("");
 				$("#due").val("");
 				$("#priority").val("");
@@ -201,29 +222,9 @@ var main=function()
 
 				//increment counter
 				i = i + 1;
-				number=number+1;console.log("New todo created!");
-				span.innerText=newlist[i].getAList();
-
-				//add the new item
-				new_TODO.appendChild(span);
-				new_TODO.appendChild(Donebox);
-				new_TODO.appendChild(Deletebutton);
-				new_TODO.appendChild(Editbutton);
-				if(number===0)
-				List.appendChild(new_TODO);
-				else
-				sort(new_TODO,i);//put the ith item in the right place
-				//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
-				//$(".TODOs").append(newlist.Donebox);
-				//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
-				//$(".TODOs").append(newlist.Deletebutton);
-				$("#task").val("");$("#due").val("");
-				$("#priority").val("");
-				console.log(i);
-
-				//increment counter
-				i = i + 1;
 				number=number+1;
+
+				
 			}
 			
 		}
