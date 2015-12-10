@@ -1,3 +1,0 @@
-1. the list item should be assigned to a class "done" after it's set to done.
-2. the list item should be assigned to a class "overdue" after its due date.
-3. the list item should be assigned to a class "pri n" where n is its priority.
