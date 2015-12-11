@@ -9,10 +9,10 @@ app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(port);
 
 var todos = [];
-var t1 = { message : "Maths homework due", type  : 1, deadline : "12/12/2015"};
-var t2 = { message : "English homework due", type : 3, deadline : "20/12/2015"};
-todos.push(t1);
-todos.push(t2);
+//var t1 = { message : "Maths homework due", type  : 1, deadline : "12/12/2015"};
+//var t2 = { message : "English homework due", type : 3, deadline : "20/12/2015"};
+//todos.push(t1);
+//todos.push(t2);
 
 //clients requests todos
 app.get("/todos", function (req, res) {
