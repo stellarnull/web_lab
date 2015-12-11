@@ -1,4 +1,5 @@
 /* global __dirname */
+///Stellar_Null/academic31/Web\ and\ Database\ Technology/lab/web_lab
 var express = require("express");
 var url = require("url");
 var http = require("http");
@@ -9,9 +10,9 @@ app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(port);
 
 var todos = [];
-//var t1 = { message : "Maths homework due", type  : 1, deadline : "12/12/2015"};
-//var t2 = { message : "English homework due", type : 3, deadline : "20/12/2015"};
-//todos.push(t1);
+var t1 = { task : "homework", pri: 1, due : "12/12/2015"};
+//var t2 = { task : "English homework due", pri : 3, due : "20/12/2015"};
+todos.push(t1);
 //todos.push(t2);
 
 //clients requests todos
@@ -20,21 +21,76 @@ app.get("/todos", function (req, res) {
 	res.json(todos);
 });
 
-//add todo to the server
+//addtodo?task=maths&pri=3&due=123
 app.get("/addtodo", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	
-	if(query["message"]!==undefined) {
-		var tx = { message : query["message"], 
-			type: query["type"],
-			deadline: query["deadline"]
+	if(query["task"]!==undefined) {
+		var tx = { task : query["task"], 
+			pri: query["pri"],
+			due: query["due"]
 		};
 		todos.push(tx);
-		console.log("Added " + tx.message);
+		console.log("Added " + tx.task);
 		res.end("Todo added successfully");
 	}
 	else {
-		res.end("Error: missing message parameter");
+		res.end("Error: missing task parameter");
+	}
+});
+
+//detodo?id=0
+app.get("/detodo", function (req, res) {
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var flag = 0;
+
+	if(query["id"]!==undefined) 
+	{
+		var i = query["id"];
+		if (query["id"]<todos.length)
+		{
+			console.log("Deleted " + todos[i].task);
+			todos.splice(i);
+			res.end("Todo deleted successfully");
+		}
+		else
+		{
+			res.end("No such todo");
+		}
+		
+	}
+	else {
+		res.end("Error: missing id parameter");
+	}
+});
+
+//uptodo?id=0&task=maths&pri=3&due=123
+app.get("/uptodo", function (req, res) {
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var flag = 0;
+
+	if(query["id"]!==undefined) 
+	{
+		var i = query["id"];
+		if (query["id"]<todos.length)
+		{
+			var temp = todos[i];
+			todos[i].task = query["task"];
+			todos[i].pri = query["pri"];
+			todos[i].due = query["due"];
+			console.log("Updated " + todos[i].task + " to " + temp.task);
+			res.end("Todo updated successfully");
+		}
+		else
+		{
+			res.end("No such todo");
+		}
+		
+	}
+	else {
+		res.end("Error: missing id parameter");
 	}
 });
