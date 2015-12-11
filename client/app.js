@@ -120,6 +120,16 @@ var main=function()
 	number=0;
 	console.log("hello world!");
 	
+	var addTodosToList = function (todos) {
+		console.log("Loading todos from server");
+		var todolist = document.getElementById("todolist");
+		for (var key in todos) {
+			var li = document.createElement("li");
+			li.innerHTML = "TODO: " + todos[key].message;
+			todolist.appendChild(li);
+		}
+	};
+
 	//this function is for adding new item to the list
 	var addCommentFromInputBox = function () 
 	{		
@@ -226,12 +236,19 @@ var main=function()
 			}
 		}
 
-		$.getJSON("../todos", addCommentFromInputBox)
+		$.getJSON("../todos", addTodosToList)
 			.error(function (jqXHR, textStatus, errorThrown) 
 			{
 				console.log("error " + textStatus);
 				console.log("incoming Text " + jqXHR.responseText);
 			});
+
+		/*setInterval(function () 
+		{
+	        console.log("Fetching the todo list from the server.");
+	        $.getJSON("../todos", addTodosToList);
+		}, 2000);*/
+		
 	};
 
 	//Either Enter or click the button will trigger the addCommentFromTnputBox() function
