@@ -1,23 +1,23 @@
 var i; //global counter
 var number//the number of items currently
-function list(task,due,priority,done){
+function listItem(task,due,priority,done){
 	
 	this.task=task;
 	this.priority=priority;
 	this.due=due;
 	this.done=done;
 }
-list.prototype.settask=function(t){this.task=t;};
-list.prototype.setpriority=function(t){this.priority=t;};
-list.prototype.setdue=function(t){this.due=t;};
-//list.prototype.setdone=function(t){this.done=t;};
-list.prototype.gettask=function(){return this.task;};
-list.prototype.getpriority=function(){return this.priority;};
-list.prototype.getdue=function(){return this.due;};
-//list.prototype.getdone=function(){return this.done;};
-list.prototype.getAList=function(){return "Task:"+this.task+"\t"+"Due:"+
+listItem.prototype.settask=function(t){this.task=t;};
+listItem.prototype.setpriority=function(t){this.priority=t;};
+listItem.prototype.setdue=function(t){this.due=t;};
+//listItem.prototype.setdone=function(t){this.done=t;};
+listItem.prototype.gettask=function(){return this.task;};
+listItem.prototype.getpriority=function(){return this.priority;};
+listItem.prototype.getdue=function(){return this.due;};
+//listItem.prototype.getdone=function(){return this.done;};
+listItem.prototype.getAList=function(){return "Task:"+this.task+"\t"+"Due:"+
 this.due+"\t"+"Priority:"+this.priority;};
-list.prototype.get
+listItem.prototype.get
 
 function updateDone(){
 	var me =this;
@@ -143,7 +143,7 @@ var main=function()
 		new_TODO.id="todo"+i;
 
 		//create content
-		newlist[i]=new list($("#task").val(), $("#due").val(), $("#priority").val(),"Unfinished");
+		newlist[i]=new listItem($("#task").val(), $("#due").val(), $("#priority").val(),"Unfinished");
 
 		//declare buttons
 		var Donebox=document.createElement("input");
@@ -243,6 +243,7 @@ var main=function()
 				console.log("incoming Text " + jqXHR.responseText);
 			});
 
+		$.getJSON("../todos", addTodosToList);
 		/*setInterval(function () 
 		{
 	        console.log("Fetching the todo list from the server.");
