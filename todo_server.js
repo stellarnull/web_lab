@@ -1,12 +1,12 @@
 /* global __dirname */
-///Stellar_Null/academic31/Web\ and\ Database\ Technology/lab/web_lab
+//Stellar_Null/academic31/Web\ and\ Database\ Technology/lab/web_lab
 var express = require("express");
 var url = require("url");
 var http = require("http");
 
 var port = 3000;
 var app = express();
-app.use(express.static(__dirname + "../client"));
+app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(port);
 
 var todos = [];
