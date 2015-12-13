@@ -25,6 +25,7 @@ app.get("/todos", function (req, res) {
 app.get("/addtodo", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
+	console.log(query);
 	
 	if(query["task"]!==undefined) {
 		var tx = { task : query["task"], 
