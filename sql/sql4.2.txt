@@ -9,4 +9,7 @@
 7. select distinct ToDoList.* from ToDoList,Tag,ToDoItem,ItemTag where Tag.Id = 1 and ToDoItem.Id = ItemTag.ToDoId and ItemTag.TagId = Tag.Id and ToDoItem.ToDoListId = ToDoList.Id;
 8. select COUNT(*) from Tag,ToDoItem,ItemTag where Tag.Id = 1 and ToDoItem.Id = ItemTag.ToDoId and ItemTag.TagId = Tag.Id and ToDoItem.Completed=1;
 9. select COUNT(*) from ToDoItem where CompletionDate between '2014-11-25 12:25:55' and '2014-12-29 12:25:55';
-10. 
+10. //所有有关时间的我都不会 我不知道timestamp怎么计算
+11. select COUNT(*) from ItemTag as a1 join ItemTag as a2 on a1.ToDoId = a2.ToDoId and a1.TagId=1 and a2.TagId=2;
+12.
+13.
