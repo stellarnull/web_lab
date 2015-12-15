@@ -130,7 +130,7 @@ mysql> select distinct L.* from ToDoList as L inner join ToDoItem as I on L.Id=I
 +----+--------+---------------------+-------+----------+
 | Id | Name   | CreationDate        | Owner | IsPublic |
 +----+--------+---------------------+-------+----------+
-|  1 | School | 2013-01-25 12:35:00 |     1 |        0 |
+|  1 | School | 2013-01-25 12:35:00 |     1 |        0 |av
 +----+--------+---------------------+-------+----------+
 1 row in set (0.00 sec)
 
@@ -150,3 +150,118 @@ mysql> select T.id,T.Text,ToDoItem.Completed,count(*) from Tag as T, ToDoItem,It
 |  5 | personal |         0 |        4 |
 |  5 | personal |         1 |        4 |
 +----+----------+-----------+----------+
+
+9.
+mysql> select week(CompletionDate), count(*) from ToDoItem group by week(CompletionDate);
++----------------------+----------+
+| week(CompletionDate) | count(*) |
++----------------------+----------+
+|                 NULL |       10 |
+|                   20 |        1 |
+|                   43 |        1 |
+|                   44 |        1 |
+|                   46 |        3 |
+|                   47 |        5 |
+|                   48 |        2 |
+|                   50 |        4 |
++----------------------+----------+
+8 rows in set (0.01 sec)
+
+
+
+10.
+mysql> select TI.Id,TI.Title,CompletionDate,CreationDate, CompletionDate-CreationDate as time from Tag as T, ToDoItem as TI ,ItemTag as IT  where TI.Id=IT.ToDoId and IT.TagId=T.Id AND T.Id=1 AND CompletionDate-CreationDate>0  order by time asc limit 10;
++----+------------------------------+---------------------+---------------------+----------+
+| Id | Title                        | CompletionDate      | CreationDate        | time     |
++----+------------------------------+---------------------+---------------------+----------+
+| 18 | First part of 2              | 2014-11-26 09:12:52 | 2014-11-25 12:23:15 |   968937 |
+|  3 | Do HTML part of assignment 1 | 2014-11-19 15:59:36 | 2014-11-18 15:26:58 |  1003278 |
+| 19 | Second part of 2             | 2014-11-27 12:52:33 | 2014-11-25 12:25:55 |  2002678 |
+| 17 | Assignment 2                 | 2014-11-27 12:52:33 | 2014-11-25 12:22:45 |  2002988 |
+|  1 | Do assignment 1              | 2014-11-20 23:55:15 | 2014-11-17 12:56:12 |  3109903 |
+| 27 | Create database for students | 2014-12-16 15:22:45 | 2014-12-12 15:48:55 |  3997390 |
+| 23 | Assignemnt 3 part 1          | 2014-12-14 12:55:34 | 2014-12-02 16:12:11 | 11964323 |
+| 24 | Assignment 3 part 2          | 2014-12-14 18:32:56 | 2014-12-02 16:12:55 | 12022001 |
+| 25 | Assignment 4 part 1          | 2014-12-16 13:25:56 | 2014-12-02 16:14:25 | 13971131 |
++----+------------------------------+---------------------+---------------------+----------+
+9 rows in set (0.00 sec)
+
+
+
+11.
+mysql> SELECT ToDoId,TagId, COUNT(*)
+    -> FROM ItemTag
+    -> GROUP BY ToDoId,TagId;
++--------+-------+----------+
+| ToDoId | TagId | COUNT(*) |
++--------+-------+----------+
+|      1 |     1 |        1 |
+|      1 |     3 |        1 |
+|      2 |     1 |        1 |
+|      2 |     3 |        1 |
+|      3 |     1 |        1 |
+|      3 |     3 |        1 |
+|      4 |     4 |        1 |
+|      5 |     4 |        1 |
+|      6 |     3 |        1 |
+|      7 |     3 |        1 |
+|      8 |     3 |        1 |
+|      9 |     3 |        1 |
+|     10 |     3 |        1 |
+|     11 |     3 |        1 |
+|     11 |     5 |        1 |
+|     12 |     2 |        1 |
+|     12 |     5 |        1 |
+|     13 |     2 |        1 |
+|     13 |     5 |        1 |
+|     14 |     2 |        1 |
+|     14 |     5 |        1 |
+|     15 |     5 |        1 |
+|     16 |     5 |        1 |
+|     17 |     1 |        1 |
+|     17 |     3 |        1 |
+|     18 |     1 |        1 |
+|     18 |     3 |        1 |
+|     19 |     1 |        1 |
+|     19 |     3 |        1 |
+|     20 |     1 |        1 |
+|     20 |     3 |        1 |
+|     21 |     5 |        1 |
+|     22 |     1 |        1 |
+|     22 |     3 |        1 |
+|     23 |     1 |        1 |
+|     23 |     3 |        1 |
+|     24 |     1 |        1 |
+|     24 |     3 |        1 |
+|     25 |     1 |        1 |
+|     25 |     3 |        1 |
+|     26 |     1 |        1 |
+|     26 |     3 |        1 |
+|     27 |     1 |        1 |
+|     27 |     3 |        1 |
+|     27 |     5 |        1 |
++--------+-------+----------+
+45 rows in set (0.00 sec)
+
+
+
+12.
+mysql> SELECT AVG(CompletionDate-CreationDate) FROM ToDoItem WHERE ToDoListId=1 AND (CompletionDate-CreationDate)>0;
++----------------------------------+
+| AVG(CompletionDate-CreationDate) |
++----------------------------------+
+|                5671403.222222222 |
++----------------------------------+
+1 row in set (0.00 sec)
+
+
+13.
+mysql> SELECT Id,Title FROM ToDoItem WHERE ToDoListId=1 AND CompletionDate-CreationDate >(SELECT AVG(CompletionDate-CreationDate) FROM ToDoItem WHERE ToDoListId=1 AND (CompletionDate-CreationDate)>0); 
++----+----------------------+
+| Id | Title                |
++----+----------------------+
+| 23 | Assignemnt 3 part 1  |
+| 24 | Assignment 3 part 2  |
+| 25 | Assignment 4 part 1  |
++----+----------------------+
+3 rows in set (0.01 sec)
