@@ -2,6 +2,7 @@
 body 
 {
 	background-color: #edf6ff;
+	font-family: Microsoft Yahei;
 }
 
 
@@ -49,24 +50,24 @@ li
 
 .done::after
 {
-	content: "DONE!";
+	content: " DONE!";
 	color: rgba(0, 100, 0, 0.7);
 }
 
 .overdue::after
 {
-	content: "OVERDUE!";
+	content: " OVERDUE!";
 	color: red;
 }
 
 .pri_1::before
 {
-	content: "IMPORTANT!";
+	content: "IMPORTANT!   ";
 	color: red;
 }
 
 .pri_2::before
 {
-	content: "MEDIUM!";
+	content: "MEDIUM!   ";
 	color: orange;
 }

@@ -1,5 +1,5 @@
 p {
-	font-family: Courier;
+	font-family: Microsoft Yahei;
 	-webkit-animation-duration: 5s;
 	-webkit-animation-name: moveTo;
 }
@@ -29,7 +29,7 @@ p::before
 span {
 	color: blue;
 	font-size: 25px;
-	font-family: Verdana;
+	font-family: Microsoft Yahei;
 	
 }
 
@@ -37,6 +37,7 @@ body
 {
 	background-color: #edf6ff;
 	padding-left: 40px;
+	font-family: Microsoft Yahei;
 }
 
 #logo {
