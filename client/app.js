@@ -104,13 +104,13 @@ function updateEdit(){//用来改变其中一个条目
 		targetList.firstChild.innerText=newlist[EditID].getAList();
 		sort(targetList,EditID);
 
-		$("#task").val("");
-		$("#due").val("");
-		$("#priority").val("");
+		//$("#task").val("");
+		//$("#due").val("");
+		//$("#priority").val("");
 	}//以上进行赋值，排序和增加新条目函数也是一样的，但是由于这个函数被
 	//增加新条目的函数调用了，所以不可以相互调用就只能复制部分相关代码
 }
-
+var todos_old;
 var newlist=Array();
 var main=function()
 {
@@ -119,15 +119,39 @@ var main=function()
 	number=0;
 	console.log("hello world!");
 	
+	
+
 	var addTodosToList = function (todos) {
 		console.log("Loading todos from server");
 		var todolist = document.getElementById("todolist");
-		for (var key in todos) {
-			var li = document.createElement("li");
-			li.innerHTML = "TODO: " + todos[key].task;
-			todolist.appendChild(li);
-		}
+		
+		$("#todolist").empty();
+			for (var key in todos) 
+			{
+				var li = document.createElement("li");
+				li.innerHTML = "TODO: " + todos[key].task;
+				todolist.appendChild(li);
+			}
+		
 	};
+	
+	$.getJSON("../todos", addTodosToList)
+			.error(function (jqXHR, textStatus, errorThrown) 
+			{
+				console.log("error " + textStatus);
+				console.log("incoming Text " + jqXHR.responseText);
+			});
+
+	setInterval(function () 
+	{
+		$.getJSON("../todos", addTodosToList)
+			.error(function (jqXHR, textStatus, errorThrown) 
+			{
+				console.log("error " + textStatus);
+				console.log("incoming Text " + jqXHR.responseText);
+			});
+		}, 2000);
+
 
 	//this function is for adding new item to the list
 	var addCommentFromInputBox = function () 
@@ -227,9 +251,9 @@ var main=function()
 					$("#sp_"+i).addClass("pri_3");
 				}
 
-				$("#task").val("");
-				$("#due").val("");
-				$("#priority").val("");
+				//$("#task").val("");
+				//$("#due").val("");
+				//$("#priority").val("");
 				console.log("todoNum"+i);
 
 				//increment counter
@@ -238,19 +262,7 @@ var main=function()
 			}
 		}
 
-		$.getJSON("../todos", addTodosToList)
-			.error(function (jqXHR, textStatus, errorThrown) 
-			{
-				console.log("error " + textStatus);
-				console.log("incoming Text " + jqXHR.responseText);
-			});
-
-		//$.getJSON("../todos", addTodosToList);
-		setInterval(function () 
-		{
-	        console.log("Fetching the todo list from the server.");
-	        $.getJSON("../todos", addTodosToList);
-		}, 2000);
+		
 		
 	};
 

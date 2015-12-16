@@ -53,7 +53,7 @@ app.get("/detodo", function (req, res) {
 		if (query["id"]<todos.length)
 		{
 			console.log("Deleted " + todos[i].task);
-			todos.splice(i);
+			todos.splice(i, 1);
 			res.end("Todo deleted successfully");
 		}
 		else
