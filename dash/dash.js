@@ -13,7 +13,7 @@ var main = function () {
 	};
 
 
-	$.getJSON("../", addDashList)
+	$.getJSON("../todos", addDashList)
 	.error(function (jqXHR, textStatus, errorThrown) 
 	{
 		console.log("error " + textStatus);

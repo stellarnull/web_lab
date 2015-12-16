@@ -21,10 +21,6 @@ http.createServer(app).listen(port);
 
 var t;
 
-app.get("/", function (req, res) {
-	console.log(t);
-	res.json(t);
-});
 
 //clients requests todos
 //?q=select * from ToDoList
