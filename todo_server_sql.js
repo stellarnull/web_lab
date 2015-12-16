@@ -21,7 +21,10 @@ http.createServer(app).listen(port);
 
 var t;
 
-
+app.get("/", function (req, res) {
+	console.log(t);
+	res.json(t);
+});
 
 //clients requests todos
 //?q=select * from ToDoList
@@ -47,7 +50,7 @@ app.get("/todos", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -79,7 +82,7 @@ app.get("/addtodo", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -108,7 +111,7 @@ app.get("/detodo", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -139,7 +142,7 @@ app.get("/uptodo", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -170,7 +173,7 @@ app.get("/todo_user", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -201,7 +204,7 @@ app.get("/todo_todolist", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -235,7 +238,7 @@ app.get("/todo_ll", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -268,7 +271,7 @@ app.get("/todo_lcp", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -299,7 +302,7 @@ app.get("/todo_p", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -330,7 +333,7 @@ app.get("/todo_tt", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -361,7 +364,7 @@ app.get("/todo_t", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -389,7 +392,7 @@ app.get("/todo_ct", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -417,7 +420,7 @@ app.get("/todo_w", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -445,7 +448,7 @@ app.get("/todo_q", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -477,7 +480,7 @@ app.get("/todo_11", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -508,7 +511,7 @@ app.get("/todo_12", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
@@ -539,7 +542,7 @@ app.get("/todo_13", function (req, res)
 			t += s;
 		}
 		t += "\n";
-		res.write(t);
+		res.json(t);
 		res.end();
 	});
 });
