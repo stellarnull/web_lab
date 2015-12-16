@@ -47,19 +47,6 @@ li
 {
 	color: green;
 }
-
-.done::after
-{
-	content: " DONE!";
-	color: rgba(0, 100, 0, 0.7);
-}
-
-.overdue::after
-{
-	content: " OVERDUE!";
-	color: red;
-}
-
 .pri_1::after
 {
 	content: "IMPORTANT!   ";
@@ -70,4 +57,36 @@ li
 {
 	content: "MEDIUM!   ";
 	color: orange;
+}
+
+.overdue::after
+{
+	content: " OVERDUE!";
+	color: red;
+}
+
+.done::after
+{
+	content: " DONE!";
+	color: rgba(0, 100, 0, 0.7);
+}
+
+
+
+p {
+	font-family: Microsoft Yahei;
+	animation-duration: 5s;
+	animation-name: moveTo;
+}
+
+@keyframes moveTo
+{
+	from
+	{
+		color: blue;
+	}
+	top
+	{
+		color: black;
+	}
 }

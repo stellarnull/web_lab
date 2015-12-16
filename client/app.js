@@ -228,11 +228,14 @@ var main=function()
 		//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
 		//$(".TODOs").append(newlist.Deletebutton);
 		
-		if (Atodo.due < 151208)//should get the current date instead
+		if (Atodo.due < 151217)//should get the current date instead
 		{
 			$("#sp_"+i).addClass("overdue");
 		}
-
+		if (Atodo.done ==="Done")//should get the current date instead
+		{
+			$("#sp_"+i).addClass("done");
+		}
 		if (Atodo.pri==='1')
 		{
 			$("#sp_"+i).addClass("pri_1");
