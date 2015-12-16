@@ -10,7 +10,7 @@ app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(port);
 
 var todos = [];
-var t1 = { task : "homework", pri: '1', due : "121212", done: "Done"};
+var t1 = { task : "homework", pri: '1', due : "121212", done: "Unfinished"};
 var t2 = { task : "English homework due", pri : '3', due : "111111", done: "Done"};
 todos.push(t1);
 todos.push(t2);
@@ -20,6 +20,8 @@ app.get("/todos", function (req, res) {
 	console.log("todos requested!");
 	res.json(todos);
 });
+
+
 
 //addtodo?task=maths&pri=3&due=123
 app.get("/addtodo", function (req, res) {
@@ -41,6 +43,32 @@ app.get("/addtodo", function (req, res) {
 	}
 });
 
+//done?id=0
+app.get("/done", function (req, res) {
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var flag=0;
+	console.log(query);
+	
+	if(query["id"]!==undefined) 
+	{
+	var i = query["id"];
+		if (query["id"]<todos.length)
+		{
+			console.log("setdone " + todos[i].task);
+			todos[i].done="Done";
+			res.end("Todo set done successfully");
+		}
+		else
+		{
+			res.end("No such todo");
+		}
+	}
+		else {
+		res.end("Error: missing id parameter");
+	}
+});
+
 //detodo?id=0
 app.get("/detodo", function (req, res) {
 	var url_parts = url.parse(req.url, true);
@@ -53,7 +81,7 @@ app.get("/detodo", function (req, res) {
 		if (query["id"]<todos.length)
 		{
 			console.log("Deleted " + todos[i].task);
-			todos.splice(i);
+			todos.splice(i, 1);
 			res.end("Todo deleted successfully");
 		}
 		else

@@ -17,16 +17,47 @@
 	</header>
 
 	<main>
-		<section class="TODO-input">s
+		<section class="TODO-input">
 			<p>Add your TODO here!</p>
 			<form action="/addtodo" method="get" target="_blank">
-			<input name="task" type="text" id="task" value="Task"/>
-			<input name="pri" type="text" id="priority" value="Priority:1-3"/>
-			<input name="due" type="text" id="due" value="Due date:yymmdd"/>
-			<input type="submit" id="addnew" value="Add ToDo!"/>
-		</form>
+				<input name="task" type="text" id="task" value="Task"/>
+				<input name="pri" type="text" id="priority" value="Priority:1-3"/>
+				<input name="due" type="text" id="due" value="Due date:yymmdd"/>
+				<input type="submit" id="addnew" value="Add ToDo!"/>
+			</form>
 		</section>
 		
+		<section class="TODO-setdone">
+			<p>Set an Item done!</p>
+			<form action="/done" method="get" target="_blank">
+				<input name="id" type="text"/>
+				<input type="submit" value="DONE!"/>
+			</form>
+		</section>
+
+		<section class="TODO-delete">
+			<p>Delete your todo by index</p>
+			<form action="/detodo" method="get" target="_blank">
+			<input name="id" type="text"/>
+			<input type="submit" value="Delete!"/>
+		</form>
+		</section>
+
+		<section class="TODO-update">
+			<p>update your TODO here!</p>
+			<form action="/uptodo" method="get" target="_blank">
+				<input name="task" type="text" id="task" value="Task"/>
+				<input name="pri" type="text" id="priority" value="Priority:1-3"/>
+				<input name="due" type="text" id="due" value="Due date:yymmdd"/>
+				<input type="submit" value="Update!"/>
+				<input name="id" type="text" value="id of todo"/>
+			</form>
+		</section>	
+
+
+
+		<form action="/addtodo" method="get" target="_blank">
+
 		<section class="TODOs">
 		<h1>Your TODOs</h1>
 		<ul id="todolist">

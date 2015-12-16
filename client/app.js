@@ -170,35 +170,55 @@ var main=function()
 		//newlist[i]=new listItem($(".task").val(), $(".due").val(), $(".priority").val(),"Unfinished");
 
 		//declare buttons
+	/* 	var Doneboxf=document.createElement("form");
+		Doneboxf.action="/setdone";
+		Doneboxf.method="get";
+		Doneboxf.target="_blank";
 		var Donebox=document.createElement("input");
 		Donebox.type="checkbox";
 		Donebox.value="Done";
 		Donebox.onclick=updateDone;
 		Donebox.id="cb_"+i;
+		Doneboxf.appendChild(Donebox);
 
+		var Deletebuttonf=document.createElement("form");
+		Deletebuttonf.action="/detodo";
+		Deletebuttonf.method="get";
+		Deletebuttonf.target="_blank";
+		var Deletenum=document.createElement("input");
+		Deletenum.type="text";
+		Deletenum.name="id"
+		Deletenum.value=i;
 		var Deletebutton=document.createElement("input");
-		Deletebutton.type="button";
-		Deletebutton.Text="Delete!";
-		Deletebutton.value="Delete!";
+		Deletebutton.type="submit";
+		Deletebutton.value="Delete";
 		Deletebutton.onclick=updateDelete;
 		Deletebutton.id="db_"+i;
+		Deletebuttonf.appendChild(Deletenum);
+		Deletebuttonf.appendChild(Deletebutton);
 
+
+		var Editbuttonf=document.createElement("form");
+		Editbuttonf.action="/uptodo";
+		Editbuttonf.method="get";
+		Editbuttonf.target="_blank";		
 		var Editbutton=document.createElement("input");
 		Editbutton.type="button";
-		Editbutton.value="Edit";
-		Editbutton.Text="Edit!";
+		Editbutton.value=i;
+		Editbutton.name="id";
 		Editbutton.onclick=updateEdit;
 		Editbutton.id="ed_"+i;
-
+		Editbuttonf.appendChild(Editbutton);
+	*/
 			
 		//console.log("New todo created!");
-		span.innerHTML="Task:" + Atodo.task+ "\tDue:"+Atodo.due + "\tPriority:"+Atodo.pri;
+		span.innerHTML=i+"\tTask:"+Atodo.task+ "\tDue:"+Atodo.due + "\tPriority:"+Atodo.pri;
 
 		//add the new item
 		new_TODO.appendChild(span);
-		new_TODO.appendChild(Donebox);
-		new_TODO.appendChild(Deletebutton);
-		new_TODO.appendChild(Editbutton);
+		//new_TODO.appendChild(Doneboxf);
+		//new_TODO.appendChild(Deletebuttonf);
+		//new_TODO.appendChild(Editbuttonf);
 		//if(number===0)
 		List.appendChild(new_TODO);
 		//else

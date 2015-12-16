@@ -60,13 +60,13 @@ li
 	color: red;
 }
 
-.pri_1::before
+.pri_1::after
 {
 	content: "IMPORTANT!   ";
 	color: red;
 }
 
-.pri_2::before
+.pri_2::after
 {
 	content: "MEDIUM!   ";
 	color: orange;
