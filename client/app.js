@@ -125,7 +125,7 @@ var main=function()
 		var todolist = document.getElementById("todolist");
 		for (var key in todos) {
 			var li = document.createElement("li");
-			li.innerHTML = "TODO: " + todos[key].message;
+			li.innerHTML = "TODO: " + todos[key].task;
 			todolist.appendChild(li);
 		}
 	};
@@ -228,7 +228,7 @@ var main=function()
 				$("#task").val("");
 				$("#due").val("");
 				$("#priority").val("");
-				console.log(i);
+				console.log("todoNum"+i);
 
 				//increment counter
 				i = i + 1;
@@ -243,12 +243,12 @@ var main=function()
 				console.log("incoming Text " + jqXHR.responseText);
 			});
 
-		$.getJSON("../todos", addTodosToList);
-		/*setInterval(function () 
+		//$.getJSON("../todos", addTodosToList);
+		setInterval(function () 
 		{
 	        console.log("Fetching the todo list from the server.");
 	        $.getJSON("../todos", addTodosToList);
-		}, 2000);*/
+		}, 2000);
 		
 	};
 
