@@ -120,13 +120,19 @@ var main=function()
 	console.log("hello world!");
 	
 	var addTodosToList = function (todos) {
-		console.log("Loading todos from server");
+		//console.log("Loading todos from server");
 		var todolist = document.getElementById("todolist");
+		$("#todolist").empty();
 		for (var key in todos) {
-			var li = document.createElement("li");
-			li.innerHTML = "TODO: " + todos[key].task;
-			todolist.appendChild(li);
+			//var li = document.createElement("li");
+			//li.innerHTML = "TODO: " + todos[key].task;
+			addCommentFromInputBox(todos[key], key);
+			//todolist.appendChild(li);
 		}
+
+		//increment counter
+		//i = todos.length;
+		number=todos.length;
 	};
 
 	$.getJSON("../todos", addTodosToList)
@@ -137,15 +143,20 @@ var main=function()
 			});
 
 		//$.getJSON("../todos", addTodosToList);
-		setInterval(function () 
+	setInterval(function () 
+	{
+        $.getJSON("../todos", addTodosToList)
+		.error(function (jqXHR, textStatus, errorThrown) 
 		{
-	        console.log("Fetching the todo list from the server.");
-	        $.getJSON("../todos", addTodosToList);
-		}, 2000);
+			console.log("error " + textStatus);
+			console.log("incoming Text " + jqXHR.responseText);
+		});
+	}, 2000);
 
 	//this function is for adding new item to the list
-	var addCommentFromInputBox = function (Atodo) 
+	var addCommentFromInputBox = function (Atodo, i) 
 	{		
+		console.log(Atodo.task+" "+Atodo.due+" "+Atodo.pri);
 		//find todolist tag
 		var List = document.getElementById("todolist");
 
@@ -180,33 +191,33 @@ var main=function()
 		Editbutton.id="ed_"+i;
 
 			
-		console.log("New todo created!");
-		span.innerText="TODO: " + Atodo.task+ "\t"+Atodo.due + "\t"+Atodo.pri +"\t"+Atodo.done;
+		//console.log("New todo created!");
+		span.innerHTML="Task:" + Atodo.task+ "\tDue:"+Atodo.due + "\tPriority:"+Atodo.pri;
 
 		//add the new item
 		new_TODO.appendChild(span);
 		new_TODO.appendChild(Donebox);
 		new_TODO.appendChild(Deletebutton);
 		new_TODO.appendChild(Editbutton);
-		if(number===0)
+		//if(number===0)
 		List.appendChild(new_TODO);
-		else
-		sort(new_TODO,i);//put the ith item in the right place
+		//else
+		//sort(new_TODO,i);//put the ith item in the right place
 		//var setDoneButton= $('<button id="DoneB"+i>Unfinished</button>');
 		//$(".TODOs").append(newlist.Donebox);
 		//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
 		//$(".TODOs").append(newlist.Deletebutton);
 		
-		if (due < 151208)//should get the current date instead
+		if (Atodo.due < 151208)//should get the current date instead
 		{
 			$("#sp_"+i).addClass("overdue");
 		}
 
-		if (pri==='1')
+		if (Atodo.pri==='1')
 		{
 			$("#sp_"+i).addClass("pri_1");
 		}
-		else if (pri==='2')
+		else if (Atodo.pri==='2')
 		{
 			$("#sp_"+i).addClass("pri_2");
 		}
@@ -220,9 +231,7 @@ var main=function()
 		//$(".priority").val("");
 		console.log("todoNum"+i);
 
-		//increment counter
-		i = i + 1;
-		number=number+1;
+
 	
 		
 	};
