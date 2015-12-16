@@ -23,7 +23,6 @@ function updateDone(){
 	var me =this;
 	console.log(me);
 	
-
 	//find the line whose checkbox is checked
 	var DoneID=this.id.replace("cb_","");
 
@@ -148,17 +147,20 @@ var main=function()
 		//declare buttons
 		var Donebox=document.createElement("input");
 		Donebox.type="checkbox";
+		Donebox.value="Done";
 		Donebox.onclick=updateDone;
 		Donebox.id="cb_"+i;
 
 		var Deletebutton=document.createElement("input");
 		Deletebutton.type="button";
 		Deletebutton.Text="Delete!";
+		Deletebutton.value="Delete!";
 		Deletebutton.onclick=updateDelete;
 		Deletebutton.id="db_"+i;
 
 		var Editbutton=document.createElement("input");
 		Editbutton.type="button";
+		Editbutton.value="Edit";
 		Editbutton.Text="Edit!";
 		Editbutton.onclick=updateEdit;
 		Editbutton.id="ed_"+i;//增加了一个用来Edit的按钮，在最后
@@ -207,7 +209,7 @@ var main=function()
 				//var DeleteButton= $('<button id="DeleteB"+i>Delete</button>');
 				//$(".TODOs").append(newlist.Deletebutton);
 				
-				if (due < 151208)
+				if (due < 151208)//should get the current date instead
 				{
 					$("#sp_"+i).addClass("overdue");
 				}
