@@ -10,8 +10,8 @@ app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(port);
 
 var todos = [];
-var t1 = { task : "homework", pri: 1, due : "121212"};
-var t2 = { task : "English homework due", pri : 3, due : "111111"};
+var t1 = { task : "homework", pri: 1, due : "121212", done: "Done"};
+var t2 = { task : "English homework due", pri : 3, due : "111111", done: "Done"};
 todos.push(t1);
 todos.push(t2);
 

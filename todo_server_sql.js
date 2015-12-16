@@ -16,8 +16,11 @@ connection.connect();
 
 var port = 3000;
 var app = express();
-//app.use(express.static(__dirname + "/client"));
+app.use(express.static(__dirname + "/dash"));
 http.createServer(app).listen(port);
+
+var t;
+
 
 
 //clients requests todos
@@ -25,9 +28,9 @@ http.createServer(app).listen(port);
 app.get("/todos", function (req, res) 
 {
 	var query = "select * from ToDoItem";
-	//console.log(query.q);
+	console.log(query);
 
-	var t = "Retrieved from database: ";
+	t = "Retrieved from database: ";
 	
 	console.log("todos requested!");
 	// Execute query
@@ -39,6 +42,7 @@ app.get("/todos", function (req, res)
 		} 
 		else 
 		{
+			console.log(rows);
 			var s = JSON.stringify(rows);
 			t += s;
 		}
@@ -57,7 +61,9 @@ app.get("/addtodo", function (req, res)
 	var pri = query.pri;
 	var q = "INSERT INTO ToDoItem(text, Priority) VALUES ('"+task+"', "+pri+");";
 	console.log(q);
-	var t = "Retrieved from database: ";
+
+	t = "Retrieved from database: ";
+
 	
 	console.log("todos added!");
 	// Execute query
@@ -86,7 +92,7 @@ app.get("/detodo", function (req, res)
 	var id = query.id;
 	var q = "DELETE FROM ToDoItem where Id="+id+";";
 	console.log(q);
-	var t = "Retrieved from database: ";
+	t = "Retrieved from database: ";
 	
 	console.log("todos deleted!");
 	// Execute query
@@ -117,7 +123,7 @@ app.get("/uptodo", function (req, res)
 	var pri = query.pri;
 	var q = "update ToDoItem set text='"+task+"',Priority="+pri+" where Id="+id+";";
 	console.log(q);
-	var t = "Retrieved from database: ";
+	t = "Retrieved from database: ";
 	
 	console.log("todos updated!");
 	// Execute query
@@ -129,6 +135,38 @@ app.get("/uptodo", function (req, res)
 		} 
 		else 
 		{
+			var s = JSON.stringify(rows);
+			t += s;
+		}
+		t += "\n";
+		res.write(t);
+		res.end();
+	});
+});
+
+//2.1
+//input:userId
+//todo_user?id=1
+app.get("/todo_user", function (req, res) 
+{
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var id = query.id;
+	var q = "SELECT * FROM ToDoList WHERE OWNER="+id+";";
+	console.log(q);
+	t = "Retrieved from database: ";
+	
+	console.log("todos updated!");
+	// Execute query
+	connection.query(q, function(e, rows) 
+	{
+		if (e) 
+		{
+			throw e;
+		} 
+		else 
+		{
+
 			var s = JSON.stringify(rows);
 			t += s;
 		}
