@@ -71,3 +71,21 @@ li
 	content: "MEDIUM!   ";
 	color: orange;
 }
+
+p {
+	font-family: Microsoft Yahei;
+	animation-duration: 5s;
+	animation-name: moveTo;
+}
+
+@keyframes moveTo
+{
+	from
+	{
+		color: blue;
+	}
+	top
+	{
+		color: black;
+	}
+}
