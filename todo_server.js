@@ -21,7 +21,7 @@ app.get("/todos", function (req, res) {
 	res.json(todos);
 });
 
-//addtodo?task=maths&pri=3&due=123
+//addtodo?task=maths&pri=3&due=123&done=done
 app.get("/addtodo", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
@@ -30,7 +30,8 @@ app.get("/addtodo", function (req, res) {
 	if(query["task"]!==undefined) {
 		var tx = { task : query["task"], 
 			pri: query["pri"],
-			due: query["due"]
+			due: query["due"],
+			done: query["done"]
 		};
 		todos.push(tx);
 		console.log("Added " + tx.task);
@@ -67,7 +68,7 @@ app.get("/detodo", function (req, res) {
 	}
 });
 
-//uptodo?id=0&task=maths&pri=3&due=123
+//uptodo?id=0&task=maths&pri=3&due=123&done=done;
 app.get("/uptodo", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
@@ -82,6 +83,7 @@ app.get("/uptodo", function (req, res) {
 			todos[i].task = query["task"];
 			todos[i].pri = query["pri"];
 			todos[i].due = query["due"];
+			todos[i].done: query["done"];
 			console.log("Updated " + todos[i].task + " to " + temp.task);
 			res.end("Todo updated successfully");
 		}
