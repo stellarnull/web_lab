@@ -15,22 +15,22 @@ var main = function () {
 	};
 
 
-	$.getJSON("../todos", addDashList)
+	$.getJSON("../home", addDashList)
 	.error(function (jqXHR, textStatus, errorThrown) 
 	{
 		console.log("error " + textStatus);
 		console.log("incoming Text " + jqXHR.responseText);
 	});
 
-	/*setInterval(function () 
+	setInterval(function () 
 	{
-		$.getJSON("../t", addDashList)
+		$.getJSON("../home", addDashList)
 			.error(function (jqXHR, textStatus, errorThrown) 
 			{
 				console.log("error " + textStatus);
 				console.log("incoming Text " + jqXHR.responseText);
 			});
-		}, 2000);*/
+		}, 2000);
 };
 
 
