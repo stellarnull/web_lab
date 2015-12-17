@@ -1,23 +1,13 @@
 ﻿var i; //global counter
 var number//the number of items currently
 function listItem(task,due,priority,done){
-	
+	//this.id=id;
 	this.task=task;
 	this.priority=priority;
 	this.due=due;
 	this.done=done;
 }
-listItem.prototype.settask=function(t){this.task=t;};
-listItem.prototype.setpriority=function(t){this.priority=t;};
-listItem.prototype.setdue=function(t){this.due=t;};
-//listItem.prototype.setdone=function(t){this.done=t;};
-listItem.prototype.gettask=function(){return this.task;};
-listItem.prototype.getpriority=function(){return this.priority;};
-listItem.prototype.getdue=function(){return this.due;};
-//listItem.prototype.getdone=function(){return this.done;};
-listItem.prototype.getAList=function(){return "Task:"+this.task+"\t"+"Due:"+
-this.due+"\t"+"Priority:"+this.priority;};
-listItem.prototype.get
+
 
 function updateDone(){
 	var me =this;

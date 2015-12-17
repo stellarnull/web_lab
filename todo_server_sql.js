@@ -19,21 +19,21 @@ var app = express();
 app.use(express.static(__dirname + "/dash"));
 http.createServer(app).listen(port);
 
-var t;
+//var t;
 
 
 //clients requests todos
 //?q=select * from ToDoList
 app.get("/todos", function (req, res) 
-{
-	var query = "select * from ToDoItem";
-	console.log(query);
+{	
+	q = "select * from ToDoItem;";
+	console.log(q);
 
-	t = "Retrieved from database: ";
+	//t = "Retrieved from database: ";
 	
 	console.log("todos requested!");
 	// Execute query
-	connection.query(query, function(e, rows) 
+	connection.query(q, function(e, rows) 
 	{
 		if (e) 
 		{
@@ -43,10 +43,23 @@ app.get("/todos", function (req, res)
 		{
 			//console.log(rows);
 			var s = JSON.stringify(rows);
-			t += s;
+				var obj=JSON.parse(s);
+				var queryans=[];
+				console.log("LENGTH="+obj.length);
+				for(var i=0;i<=obj.length-1;i++)
+				{
+					
+						var qu={};
+						qu.id=obj[i].Id;
+						qu.task=obj[i].Text;
+						qu.pri=obj[i].Priority;
+						qu.due=obj[i].DueDate;
+						qu.done=obj[i].Completed===1? "Done":"Unfinished";
+						console.log(qu);
+						queryans.push(qu);
+				}
 		}
-		t += "\n";
-		res.json(t);
+		res.json(queryans);
 		res.end();
 	});
 });
@@ -83,17 +96,20 @@ app.get("/addtodo", function (req, res)
 	});
 });
 
-//detodo?id=30
-app.get("/detodo", function (req, res) 
-{
+
+//done?id=0
+app.get("/done", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
+	console.log(query);
 	var id = query.id;
-	var q = "DELETE FROM ToDoItem where Id="+id+";";
-	console.log(q);
+	//var task = query.task;
+	//var pri = query.pri;
+	var q = "update ToDoItem set Completed=1 where Id="+id+";";
+	//console.log(q);
 	t = "Retrieved from database: ";
 	
-	console.log("todos deleted!");
+	//console.log("todos updated!");
 	// Execute query
 	connection.query(q, function(e, rows) 
 	{
@@ -108,6 +124,36 @@ app.get("/detodo", function (req, res)
 		}
 		t += "\n";
 		res.json(t);
+		res.end();
+	});
+});
+
+//detodo?id=30
+app.get("/detodo", function (req, res) 
+{
+	var url_parts = url.parse(req.url, true);
+	var query = url_parts.query;
+	var id = query.id;
+	var q = "DELETE FROM ToDoItem where Id="+id+";";
+	console.log(q);
+	//t = "Retrieved from database: ";
+	
+	console.log("todos deleted!");
+	// Execute query
+	connection.query(q, function(e, rows) 
+	{
+		if (e) 
+		{
+			throw e;
+		} 
+		else 
+		{
+			console.log(rows);
+			var s = JSON.stringify(rows);
+			//t += s;
+		}
+		//t += "\n";
+		res.json(s);
 		res.end();
 	});
 });
@@ -522,7 +568,6 @@ app.get("/todo_13", function (req, res)
 	var id = query.id;
 	var q = "SELECT Id,Title FROM ToDoItem WHERE ToDoListId="+id+" AND CompletionDate-CreationDate >(SELECT AVG(CompletionDate-CreationDate) FROM ToDoItem WHERE ToDoListId="+id+" AND (CompletionDate-CreationDate)>0); ";
 	console.log(q);
-	t = "Retrieved from database: ";
 	
 	// Execute query
 	connection.query(q, function(e, rows) 
@@ -533,12 +578,21 @@ app.get("/todo_13", function (req, res)
 		} 
 		else 
 		{
-
 			var s = JSON.stringify(rows);
-			t += s;
+			var obj=JSON.parse(s);
+			var queryans=[];
+			console.log("LENGTH="+obj.length);
+			for(var i=0;i<=obj.length-1;i++)
+			{
+						
+				var qu={};
+				qu.id=obj[i].Id;
+				qu.task=obj[i].Title;
+				console.log(qu);
+				queryans.push(qu);
+			}
 		}
-		t += "\n";
-		res.json(t);
+		res.json(queryans);
 		res.end();
 	});
 });

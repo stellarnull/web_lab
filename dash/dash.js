@@ -1,15 +1,17 @@
 var main = function () {
 	"use strict";
 
-	var addDashList = function (t) {
-		console.log(t);
+	var addDashList = function (q) {
 		console.log("Loading dashes from server");
 		var dashlist = document.getElementById("dashlist");
 		$("#dashlist").empty();
-		var li = document.createElement("li");
-		li.innerHTML = t;
-		dashlist.appendChild(li);
-		
+		for (var key in q) 
+		{
+			//console.log(q[key]);
+			var li = document.createElement("li");
+			li.innerHTML = JSON.stringify(q[key]);
+			dashlist.appendChild(li);
+		}
 	};
 
 
