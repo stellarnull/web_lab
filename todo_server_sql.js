@@ -16,7 +16,7 @@ connection.connect();
 
 var port = 3000;
 var app = express();
-app.use(express.static(__dirname + "/dash"));
+app.use(express.static(__dirname + "/client"));
 http.createServer(app).listen(port);
 
 //var t;
@@ -52,8 +52,12 @@ app.get("/todos", function (req, res)
 						var qu={};
 						qu.id=obj[i].Id;
 						qu.task=obj[i].Text;
-						qu.pri=obj[i].Priority;
-						qu.due=obj[i].DueDate;
+						qu.pri=obj[i].Priority.toString();
+						var str=JSON.stringify(obj[i].DueDate);
+						var yy=str.substring(3,5);
+						var mm=str.substring(6,8);
+						var dd=str.substring(9,11);
+						qu.due=yy+mm+dd;
 						qu.done=obj[i].Completed===1? "Done":"Unfinished";
 						console.log(qu);
 						queryans.push(qu);
@@ -71,7 +75,12 @@ app.get("/addtodo", function (req, res)
 	var query = url_parts.query;
 	var task = query.task;
 	var pri = query.pri;
-	var q = "INSERT INTO ToDoItem(text, Priority) VALUES ('"+task+"', "+pri+");";
+	var due=query.due;
+	var yy=due.substring(0,2);
+	var mm=due.substring(2,4);
+	var dd=due.substring(4,6);
+	var DueDate='20'+yy+'-'+mm+'-'+dd+' 05:00:00';
+	var q = "INSERT INTO ToDoItem(text, Priority, DueDate) VALUES ('"+task+"', "+pri+",'"+DueDate+"');";
 	console.log(q);
 
 	t = "Retrieved from database: ";
