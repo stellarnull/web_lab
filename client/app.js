@@ -40,7 +40,7 @@ var main=function()
 
 		number=todos.length;
 	};
-
+/*
 	$.getJSON("../todos", addTodosToList)
 			.error(function (jqXHR, textStatus, errorThrown) 
 			{
@@ -58,7 +58,7 @@ var main=function()
 			console.log("incoming Text " + jqXHR.responseText);
 		});
 	}, 2000);
-
+*/
 	//this function is for adding new item to the list
 	var addCommentFromInputBox = function (Atodo, i) 
 	{		
@@ -126,7 +126,37 @@ var main=function()
 			addCommentFromInputBox();
 		}
 	});
+
+
+	// Make cookie
+	$(".RandomColor").on("click", function () {
+	console.log("RandomColor cliked");
+		$.removeCookie("color");
+		var color_new = getRandomColor();
+		$.cookie("color", color_new, {expires: new Date(2017,10,10)});
+		console.log($.cookie("color"));
+
+		//COOKIE CHANGE COLOR
+		$(".body").css({"color": $.cookie("color")});
+	});
 };
+
+
+
+
+
+
+
+
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
 
 
 $(document).ready(main);
