@@ -3,7 +3,6 @@ body
 {
 	background-color: #edf6ff;
 	font-family: Microsoft Yahei;
-	color: red;
 }
 
 
@@ -76,18 +75,5 @@ li
 
 p {
 	font-family: Microsoft Yahei;
-	animation-duration: 5s;
-	animation-name: moveTo;
-}
-
-@keyframes moveTo
-{
-	from
-	{
-		color: blue;
-	}
-	top
-	{
-		color: black;
-	}
+	
 }

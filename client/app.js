@@ -135,10 +135,13 @@ var main=function()
 		var color_new = getRandomColor();
 		$.cookie("color", color_new, {expires: new Date(2017,10,10)});
 		console.log($.cookie("color"));
-
-		//COOKIE CHANGE COLOR
-		$("body").css({"color": $.cookie("color")});
+	//COOKIE CHANGE COLOR
+	$("body").css({"color": $.cookie("color")});
+		
+		
 	});
+	//COOKIE CHANGE COLOR
+	$("body").css({"color": $.cookie("color")});
 };
 
 
