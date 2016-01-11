@@ -1,0 +1,32 @@
+{
+  "name": "planit",
+  "version": "1.0.0",
+  "description": "a todo app",
+  "main": "todo_server_sql.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/stellarnull/web_lab.git"
+  },
+  "keywords": [
+    "todoapp"
+  ],
+  "dependencies": {
+    "body-parser": "^1.14.2",
+    "express": "^4.13.3",
+    "jsonfile": "^2.2.3",
+    "mysql": "^2.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodejs todo_server_sql.js"
+  },
+  "author": "Stellar, Albert",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stellarnull/web_lab/issues"
+  },
+  "homepage": "https://github.com/stellarnull/web_lab"
+}

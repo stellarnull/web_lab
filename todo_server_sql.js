@@ -37,7 +37,7 @@ app.get("/home", function (req, res)
 
 //clients requests todos
 //?q=select * from ToDoList
-app.get("/todos", function (req, res) 
+app.get("/todos?", function (req, res) 
 {	
 	q = "select * from ToDoItem;";
 	console.log(q);
@@ -127,11 +127,7 @@ app.get("/addtodo", function (req, res)
 });
 
 
-
-
-
 //done?id=0
-
 app.get("/done", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
@@ -202,7 +198,12 @@ app.get("/uptodo", function (req, res)
 	var id = query.id;
 	var task = query.task;
 	var pri = query.pri;
-	var q = "update ToDoItem set text='"+task+"',Priority="+pri+" where Id="+id+";";
+	var due=query.due;
+	var yy=due.substring(0,2);
+	var mm=due.substring(2,4);
+	var dd=due.substring(4,6);
+	var DueDate='20'+yy+'-'+mm+'-'+dd+' 05:00:00';
+	var q = "update ToDoItem set text='"+task+"',Priority="+pri+", DueDate='"+Duedate+"' where Id="+id+";";
 	console.log(q);
 
 	
