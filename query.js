@@ -1,11 +1,7 @@
-"use strict"
-
 //Query 0:
 exports.todosAmount = function(app,connection,ejs){
 app.get("/todosAmount", function (req, res) {
-	console.log("q0");
 	var query = "Select Count(*) From ToDoItem;";
-	console.log(query);
 	connection.query(query, function (error, results, fiels) {
 		//sending data + html using ejs template
 		res.render('dash', {classname: 'todos_amount', caption: 'Amount of todos:', results: results });
@@ -16,7 +12,6 @@ app.get("/todosAmount", function (req, res) {
 //Query 1:
 exports.getTodoList = function(app,connection,ejs){
 app.get("/getTodoList", function (req, res) {
-	console.log("q1");
 	var query = "SELECT TL.* FROM ToDoList as TL, User as U WHERE TL.Owner = U.id AND U.id =" + 1;
 	connection.query(query, function (error, results, fiels) {
 		//sending data + html using ejs template

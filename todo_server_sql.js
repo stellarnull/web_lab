@@ -30,7 +30,7 @@ var app = express();
 
 app.set('views', __dirname + '/dash');
 app.set('view engine', 'ejs');
-//app.use(session({ secret: 'secretsession' }));
+app.use(session({ secret: 'secretsession' }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(bodyparser.urlencoded({ extended: true }));
@@ -40,19 +40,23 @@ app.use(express.static("client"));
 http.createServer(app).listen(port);
 
 
-var FACEBOOK_APP_ID = "--insert-facebook-app-id-here--";
-var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
 
+//var FACEBOOK_APP_ID = "138630813180416";
+//var FACEBOOK_APP_SECRET = "1c576a7d8914eb6aa0e9455b512804d3";
+var FACEBOOK_APP_ID = "1640705326190277";
+var FACEBOOK_APP_SECRET = "33610047a2044ce05e26feef4cd2b529";
 
+//todo < "/home/pracuser/Desktop/dump.sql"
 
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/login/facebook/callback',
-    enableProof: false
+    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+    //enableProof: false
 },
 	function (accessToken, refreshToken, profile, done) {
-		done(null, temp);
+
+		done(null, profile);
 	}
 	));
 
@@ -69,7 +73,7 @@ app.get('/auth/facebook', passport.authenticate('facebook'));
 app.get('/auth/facebook/callback', 
   passport.authenticate('facebook', { failureRedirect: '/index' }),
   function(req, res) {
-    res.redirect('/main');
+    res.redirect('/main.html');
   });
 
 function ensureAuthenticated(req, res, next) {
@@ -95,17 +99,8 @@ app.get("/home", function (req, res)
 //?q=select * from ToDoList
 app.get("/todos?", function (req, res) 
 {	
-	var user = req.user;
-	console.log("user");
-	//console.log(user.facebookId);
-	q = "select * from ToDoItem;";
+	q = "select * from ToDoItem where ItemOwner=" + FACEBOOK_APP_ID + ";";
 	console.log(q);
-
-
-
-	//t = "Retrieved from database: ";
-
-	
 	console.log("todos requested!");
 	// Execute query
 	connection.query(q, function(e, rows) 
@@ -133,7 +128,6 @@ app.get("/todos?", function (req, res)
 						var dd=str.substring(9,11);
 						qu.due=yy+mm+dd;
 						qu.done=obj[i].Completed===1? "Done":"Unfinished";
-						console.log(qu);
 						queryans.push(qu);
 				}
 
@@ -151,7 +145,7 @@ app.get("/todos?", function (req, res)
 
 
 
-//addtodo?task=maths&pri=3&due=123
+//addtodo?task=mathhomework&pri=3&due=123
 
 app.get("/addtodo", function (req, res) 
 {
@@ -164,7 +158,7 @@ app.get("/addtodo", function (req, res)
 	var mm=due.substring(2,4);
 	var dd=due.substring(4,6);
 	var DueDate='20'+yy+'-'+mm+'-'+dd+' 05:00:00';
-	var q = "INSERT INTO ToDoItem(text, Priority, DueDate) VALUES ('"+task+"', "+pri+",'"+DueDate+ "');";
+	var q = "INSERT INTO ToDoItem(text, Priority, DueDate, ItemOwner) VALUES ('"+task+"', "+pri+",'"+DueDate+"','"+FACEBOOK_APP_ID+ "');";
 	console.log(q);
 
 
