@@ -10,6 +10,7 @@ var bodyparser = require("body-parser");
 var ejs = require("ejs")
 
 var query = require("./query");
+var facebook = require("./facebook");
 
 // Connect to database
 var mysql = require("mysql");
@@ -41,17 +42,19 @@ http.createServer(app).listen(port);
 
 
 
-//var FACEBOOK_APP_ID = "138630813180416";
-//var FACEBOOK_APP_SECRET = "1c576a7d8914eb6aa0e9455b512804d3";
-var FACEBOOK_APP_ID = "1640705326190277";
-var FACEBOOK_APP_SECRET = "33610047a2044ce05e26feef4cd2b529";
+//var FACEBOOK_APP_ID = "1640705326190277";
+//138630813180416
+//var FACEBOOK_APP_SECRET = "33610047a2044ce05e26feef4cd2b529";
+//1c576a7d8914eb6aa0e9455b512804d3
+var FACEBOOK_APP_ID = facebook.appID;
+var FACEBOOK_APP_SECRET = facebook.appSecret;
 
 //todo < "/home/pracuser/Desktop/dump.sql"
 
 passport.use(new FacebookStrategy({
     clientID: FACEBOOK_APP_ID,
     clientSecret: FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook/callback',
+    callbackURL: facebook.callbackUrl,
     //enableProof: false
 },
 	function (accessToken, refreshToken, profile, done) {
