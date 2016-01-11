@@ -63,7 +63,7 @@ li
 .overdue::after
 {
 	content: " OVERDUE!";
-	color: red;
+	color: blue;
 }
 
 .done::after
