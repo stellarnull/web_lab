@@ -137,7 +137,7 @@ var main=function()
 		console.log($.cookie("color"));
 
 		//COOKIE CHANGE COLOR
-		$(".body").css({"color": $.cookie("color")});
+		$("body").css({"color": $.cookie("color")});
 	});
 };
 

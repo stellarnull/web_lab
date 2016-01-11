@@ -3,6 +3,10 @@
 var express = require("express");
 var url = require("url");
 var http = require("http");
+var passport = require("passport");
+var FacebookStrategy = require("passport-facebook").Strategy;
+var session = require('express-session')
+
 // Connect to database
 var mysql = require("mysql");
 var connection = mysql.createConnection({
@@ -19,9 +23,54 @@ var port = 3000;
 
 var app = express();
 
+app.use(session({ secret: 'secretsession' }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(bodyparser.urlencoded({ extended: true }));
+app.use(bodyparser.json());
 app.use(express.static(__dirname + "/client"));
 
 http.createServer(app).listen(port);
+
+
+var FACEBOOK_APP_ID = "--insert-facebook-app-id-here--";
+var FACEBOOK_APP_SECRET = "--insert-facebook-app-secret-here--";
+
+
+
+passport.use(new FacebookStrategy({
+    clientID: fb.appID,
+    clientSecret: fb.appSecret,
+    callbackURL: fb.callbackUrl,
+    enableProof: false
+},
+	function (accessToken, refreshToken, profile, done) {
+		done(null, temp);
+	}
+	));
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+app.get('/auth/facebook', passport.authenticate('facebook'));
+
+app.get('/auth/facebook/callback', 
+  passport.authenticate('facebook', { failureRedirect: '/index' }),
+  function(req, res) {
+    res.redirect('/main');
+  });
+
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('/index')
+}
+
+
 
 
 
@@ -39,7 +88,10 @@ app.get("/home", function (req, res)
 //?q=select * from ToDoList
 app.get("/todos?", function (req, res) 
 {	
-	q = "select * from ToDoItem;";
+	var user = req.user;
+	console.log("user");
+	console.log(user.facebookId);
+	q = "select * from ToDoItem WHERE todoitem.ItemOwner="+req.user.facebookId+";";
 	console.log(q);
 
 
@@ -105,7 +157,7 @@ app.get("/addtodo", function (req, res)
 	var mm=due.substring(2,4);
 	var dd=due.substring(4,6);
 	var DueDate='20'+yy+'-'+mm+'-'+dd+' 05:00:00';
-	var q = "INSERT INTO ToDoItem(text, Priority, DueDate) VALUES ('"+task+"', "+pri+",'"+DueDate+"');";
+	var q = "INSERT INTO ToDoItem(text, Priority, DueDate, ItemOwner) VALUES ('"+task+"', "+pri+",'"+DueDate+ "','" + req.user.facebookId + "');";
 	console.log(q);
 
 
@@ -132,7 +184,7 @@ app.get("/done", function (req, res) {
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	var id = query.id;
-	var q = "update ToDoItem set Completed=1 where Id="+id+";";
+	var q = "update ToDoItem set Completed=1 where Id="+id+' and todoitem.ItemOwner=' + req.user.facebookId+";";
 	console.log(q);
 
 	
@@ -163,7 +215,7 @@ app.get("/detodo", function (req, res)
 	var url_parts = url.parse(req.url, true);
 	var query = url_parts.query;
 	var id = query.id;
-	var q = "DELETE FROM ToDoItem where Id="+id+";";
+	var q = "DELETE FROM ToDoItem where Id="+id+' and todoitem.ItemOwner=' + req.user.facebookId+";";
 	console.log(q);
 
 	
@@ -203,7 +255,7 @@ app.get("/uptodo", function (req, res)
 	var mm=due.substring(2,4);
 	var dd=due.substring(4,6);
 	var DueDate='20'+yy+'-'+mm+'-'+dd+' 05:00:00';
-	var q = "update ToDoItem set text='"+task+"',Priority="+pri+", DueDate='"+Duedate+"' where Id="+id+";";
+	var q = "update ToDoItem set text='"+task+"',Priority="+pri+", DueDate='"+Duedate+"' where Id="+id+' and todoitem.ItemOwner=' + req.user.facebookId+";";
 	console.log(q);
 
 	
